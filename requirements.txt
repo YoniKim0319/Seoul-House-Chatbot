@@ -1,0 +1,5 @@
+streamlit
+numpy
+pandas
+imbalanced-learn
+sklearn
