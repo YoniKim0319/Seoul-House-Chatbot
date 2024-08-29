@@ -1,9 +1,11 @@
 import streamlit as st
 from joblib import load
 import pandas as pd
+import os
 
-# 모델 불러오기
-model = load(r'C:\Users\user\Seoul_house_project\seoul_satisfaction_model.joblib')
+# 모델 파일 경로를 상대 경로로 지정
+model_path = os.path.join('Seoul_house_project', 'seoul_satisfaction_model.joblib')
+model = load(model_path)
 
 # 스트림릿 애플리케이션 타이틀
 st.title('서울특별시 주민 만족도 예측 서비스')
