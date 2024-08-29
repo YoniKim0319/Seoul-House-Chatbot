@@ -43,13 +43,6 @@ forest_clf = train_model(X_train, y_train)
 # 교차 검증을 통한 정확도 측정
 forest_clf_cv = cross_val_score(forest_clf, X_train, y_train, cv=5, scoring='accuracy')
 
-# Streamlit 대시보드에 결과 출력
-st.write(f'교차 검증 평균 정확도: {forest_clf_cv.mean():.4f}')
-
-
-# 스트림릿 애플리케이션 타이틀
-st.title('서울특별시 주민 만족도 예측 서비스')
-
 st.markdown("""
 본 서비스는 **서울특별시 주민들의 만족도를 예측**하는 인터랙티브한 플랫폼입니다.
 사용자는 만족도 예측을 위해 원하는 값을 입력하면, 해당 데이터에 기반한 만족도 예측 결과를 실시간으로 확인할 수 있습니다.
@@ -185,15 +178,15 @@ occupy_options = [
 ]
 selected_occupy_index = st.radio('점유 형태 선택', range(1, 8), format_func=lambda x: f"{x}. {occupy_options[x-1]}")
 
-num_of_room = st.slider('방 수 입력', 0.0, 10.0, 5.0)
+num_of_room = st.slider('방 수 입력', 0.0, 10.0, 3.0)
 
-num_of_livingroom = st.slider('거실 수 입력', 0.0, 10.0, 5.0)
+num_of_livingroom = st.slider('거실 수 입력', 0.0, 10.0, 1.0)
 
-num_of_kitchen = st.slider('부엌 수 입력', 0.0, 10.0, 5.0)
+num_of_kitchen = st.slider('부엌 수 입력', 0.0, 10.0, 1.0)
 
 area = st.number_input('평수 입력', min_value=0.0, max_value=9999999.0, value=50.0)
 
-income = st.number_input('월 평균 근로/사업 소득', min_value=0, max_value=9999999, value=5000)
+income = st.number_input('월 평균 근로/사업 소득', min_value=0, max_value=9999999, value=300)
 
 # 예측 버튼
 if st.button('예측 결과 확인'):
@@ -232,4 +225,7 @@ if st.button('예측 결과 확인'):
     """)
 
     # 만족도 예측 결과를 굵고 크게 표시
-    st.markdown(f"**만족도 예측: {predicted_satisfaction}**")
+    st.markdown(f"**만족도 예측 결과: {predicted_satisfaction}**")
+
+    # Streamlit 대시보드에 결과 출력
+    st.write(f'교차 검증 평균 정확도: {forest_clf_cv.mean():.4f}')
